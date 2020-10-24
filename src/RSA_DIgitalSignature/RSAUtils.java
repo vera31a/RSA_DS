@@ -23,12 +23,12 @@ import javax.crypto.Cipher;
 public class RSAUtils {
 
     /**
-     * 加密算法RSA
+     * Key Generate Algorithm
      */
     public static final String KEY_ALGORITHM = "RSA";
 
     /**
-     * 签名算法
+     * Sign Algorithm
      */
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 
@@ -60,10 +60,13 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static Map<String, Object> genKeyPair() throws Exception {
+    public static Map<String, Object> genKeyPair() throws Exception {//Gen
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+        /*Returns a KeyPairGenerator object that generates public/private key pairs for the specified algorithm.*/
         keyPairGen.initialize(1024);
+        /*Initializes the KeyPairGenerator object for a certain keysize with the given source of randomness (and a default parameter set)*/
         KeyPair keyPair = keyPairGen.generateKeyPair();
+        /*Initializes the KeyPairGenerator object（which returns null actually）*/
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         Map<String, Object> keyMap = new HashMap<String, Object>(2);
@@ -83,7 +86,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static String sign(byte[] data, String privateKey) throws Exception {
+    public static String sign(byte[] data, String privateKey) throws Exception {//Sign
         byte[] keyBytes = Base64.decodeBase64(privateKey);
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -107,7 +110,7 @@ public class RSAUtils {
      * @throws Exception
      *
      */
-    public static boolean verify(byte[] data, String publicKey, String sign)
+    public static boolean verify(byte[] data, String publicKey, String sign)//Verify
             throws Exception {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);

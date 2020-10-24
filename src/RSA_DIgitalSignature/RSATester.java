@@ -19,8 +19,8 @@ public class RSATester {
     }
 
     public static void main(String[] args) throws Exception {
-//        test();
-        testSign();
+        test();
+//        testSign();
     }
 
     static void test() throws Exception {
